@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { BookOpen, Calendar, Users, Video } from 'lucide-react';
 import { SERVICES } from '../constants';
+import { Helmet } from 'react-helmet-async';
 
 export default function Resources() {
   // Filter for resources (id: 'resources')
@@ -13,6 +14,9 @@ export default function Resources() {
 
   return (
     <div className="bg-stone-50 pt-20">
+      <Helmet>
+        <title>Quince - Resources</title>
+      </Helmet>
       {/* Header */}
       <div className="bg-emerald-800 text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">

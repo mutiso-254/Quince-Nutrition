@@ -2,10 +2,14 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Star, Shield, Users, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export default function Home() {
   return (
     <div className="bg-stone-50">
+      <Helmet>
+        <title>Quince - Home</title>
+      </Helmet>
       {/* Hero Section */}
       <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}

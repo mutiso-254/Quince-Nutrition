@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Leaf, Stethoscope, Apple, MessageCircle, CheckCircle2 } from 'lucide-react';
 import { SERVICES } from '../constants';
+import { Helmet } from 'react-helmet-async';
 
 export default function Services() {
   // Filter services that belong to this page (1, 2, 4, 6)
@@ -18,6 +19,9 @@ export default function Services() {
 
   return (
     <div className="bg-stone-50 pt-20">
+      <Helmet>
+        <title>Quince - Services</title>
+      </Helmet>
       {/* Header */}
       <div className="bg-emerald-900 text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">

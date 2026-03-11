@@ -12,9 +12,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env file
+load_dotenv(BASE_DIR / '.env')
 
 # Path to the React build output (dist folder)
 FRONTEND_DIR = BASE_DIR / 'dist'
@@ -147,3 +151,10 @@ EMAIL_HOST_PASSWORD = 'mutisokylie'
 
 # Recipient for contact form emails
 CONTACT_EMAIL_RECIPIENT = 'm.mutiso@begryp.com'
+
+
+# ============================================================
+# Airtable Configuration
+# ============================================================
+AIRTABLE_BASE_ID = os.getenv('AIRTABLE_BASE_ID', '')
+AIRTABLE_ACCESS_TOKEN = os.getenv('AIRTABLE_ACCESS_TOKEN', '')

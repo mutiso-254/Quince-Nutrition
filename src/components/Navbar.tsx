@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Menu, X, Phone, Mail, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation } from 'react-router-dom';
 import { COMPANY_INFO } from '../constants';
+import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { cartCount, setIsCartOpen } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,6 +64,25 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Cart Button */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className={`relative p-2 rounded-full transition-colors ${
+                scrolled || location.pathname !== '/' 
+                  ? 'text-stone-600 hover:bg-stone-100' 
+                  : 'text-white hover:bg-white/10'
+              }`}
+              aria-label="Shopping cart"
+            >
+              <ShoppingCart size={24} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+            
             <Link
               to="/contact"
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors shadow-lg ${
@@ -75,7 +96,25 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center">
+          <div className="lg:hidden flex items-center gap-3">
+            {/* Cart Button Mobile */}
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className={`relative p-2 rounded-full transition-colors ${
+                scrolled || location.pathname !== '/' 
+                  ? 'text-stone-600 hover:bg-stone-100' 
+                  : 'text-white hover:bg-white/10'
+              }`}
+              aria-label="Shopping cart"
+            >
+              <ShoppingCart size={24} />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+            
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`focus:outline-none ${scrolled || location.pathname !== '/' ? 'text-stone-600' : 'text-white'}`}

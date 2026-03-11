@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Phone, Mail, MapPin, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { COMPANY_INFO } from '../constants';
+import { Helmet } from 'react-helmet-async';
 
 export default function Contact() {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -57,6 +58,9 @@ export default function Contact() {
 
   return (
     <div className="bg-stone-50 pt-20">
+      <Helmet>
+        <title>Quince - Contact</title>
+      </Helmet>
       <div className="bg-emerald-900 text-white py-20 text-center relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img

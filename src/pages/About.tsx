@@ -2,10 +2,14 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ABOUT_CONTENT } from '../constants';
 import { CheckCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 
 export default function About() {
   return (
     <div className="bg-stone-50 pt-20">
+      <Helmet>
+        <title>Quince - about</title>
+      </Helmet>
        {/* Header */}
        <div className="bg-stone-100 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -1,9 +1,10 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_http_methods
 from django.core.mail import send_mail
 from django.conf import settings
+from . import airtable_service
 
 
 @csrf_exempt
@@ -50,6 +51,15 @@ def send_contact_email(request):
                 status=500
             )
 
+        # Save to Airtable Contact Form Responses table
+        airtable_service.save_contact_form_response(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            service_interest=service,
+            message=message
+        )
+
         return JsonResponse({'success': True, 'message': 'Email sent successfully!'})
 
     except json.JSONDecodeError:
@@ -57,5 +67,19 @@ def send_contact_email(request):
     except Exception as e:
         return JsonResponse(
             {'error': f'Failed to send email: {str(e)}'},
+            status=500
+        )
+
+
+@csrf_exempt
+@require_http_methods(['GET'])
+def get_products(request):
+    """Fetch all products from Airtable Inventory table."""
+    try:
+        products = airtable_service.fetch_inventory()
+        return JsonResponse({'success': True, 'products': products})
+    except Exception as e:
+        return JsonResponse(
+            {'error': f'Failed to fetch products: {str(e)}'},
             status=500
         )
