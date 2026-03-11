@@ -39,12 +39,12 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex flex-col">
-              <span className={`font-serif text-2xl font-bold tracking-tight ${scrolled || location.pathname !== '/' ? 'text-emerald-900' : 'text-white'}`}>
-                Quince
+            <Link to="/" className="flex flex-col leading-tight">
+              <span className={`font-serif text-xl md:text-2xl font-semibold tracking-tight ${scrolled || location.pathname !== '/' ? 'text-stone-800' : 'text-white'}`}>
+                Quince Nutrition
               </span>
-              <span className={`text-[10px] uppercase tracking-widest font-medium ${scrolled || location.pathname !== '/' ? 'text-emerald-600' : 'text-emerald-200'}`}>
-                Nutrition Wellness & Counselling
+              <span className={`text-[9px] md:text-[10px] uppercase tracking-widest font-medium ${scrolled || location.pathname !== '/' ? 'text-emerald-600' : 'text-emerald-400'}`}>
+                Wellness & Counselling
               </span>
             </Link>
           </div>
