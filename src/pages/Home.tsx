@@ -3,6 +3,46 @@ import { motion } from 'motion/react';
 import { ArrowRight, Star, Shield, Users, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+
+const heroSlides = [
+  {
+    id: 1,
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=2070&auto=format&fit=crop",
+    badge: "Personalized Counselling",
+    title: "Expert Nutrition",
+    highlight: "Counselling & Support",
+    description: "Get one-on-one guidance from our certified nutritionists and wellness experts. We help you create sustainable lifestyle changes through personalized counselling sessions tailored to your unique needs.",
+  },
+  {
+    id: 2,
+    image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop",
+    badge: "Holistic Wellness",
+    title: "Transform Your",
+    highlight: "Health Journey",
+    description: "We provide expert-driven nutrition solutions, wellness coaching, and evidence-based guidance to help you achieve optimal health and lasting vitality.",
+  },
+  {
+    id: 3,
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=2053&auto=format&fit=crop",
+    badge: "Chronic Disease Management",
+    title: "Managing Diabetes",
+    highlight: "& Chronic Conditions",
+    description: "Specialized programs for diabetes management, hypertension, and other chronic conditions. Our evidence-based approach helps you take control of your health.",
+  },
+  {
+    id: 4,
+    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070&auto=format&fit=crop",
+    badge: "Corporate Wellness",
+    title: "Building Healthier",
+    highlight: "Organizations",
+    description: "Comprehensive workplace wellness programs that boost employee health, productivity, and morale through nutrition education and mental health support.",
+  },
+];
 
 export default function Home() {
   return (
@@ -10,54 +50,77 @@ export default function Home() {
       <Helmet>
         <title>Quince - Home</title>
       </Helmet>
-      {/* Hero Section */}
-      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=2070&auto=format&fit=crop" 
-            alt="Healthy lifestyle food background" 
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-stone-900/40"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-transparent to-transparent"></div>
-        </div>
+      {/* Hero Section with Slider */}
+      <section className="relative h-screen min-h-[700px] overflow-hidden">
+        <Swiper
+          modules={[Autoplay, Pagination, EffectFade]}
+          effect="fade"
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            bulletClass: 'swiper-pagination-bullet !bg-white/50',
+            bulletActiveClass: 'swiper-pagination-bullet-active !bg-white',
+          }}
+          loop={true}
+          className="h-full"
+        >
+          {heroSlides.map((slide, index) => (
+            <SwiperSlide key={slide.id}>
+              <div className="relative h-full flex items-center justify-center">
+                {/* Background Image with Overlay */}
+                <div className="absolute inset-0 z-0">
+                  <img 
+                    src={slide.image}
+                    alt={slide.title}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-stone-900/40"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-transparent to-transparent"></div>
+                </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-100 text-xs font-bold tracking-widest uppercase">
-              Quince Nutrition & Consultancy
-            </div>
-            <h1 className="font-serif text-5xl md:text-7xl font-medium leading-tight mb-6">
-              Empowering Your <br />
-              <span className="text-emerald-400 italic">Journey to Wellness</span>
-            </h1>
-            <p className="text-lg md:text-xl text-stone-200 mb-10 max-w-2xl mx-auto leading-relaxed">
-              We provide expert-driven nutrition solutions, wellness coaching, and evidence-based guidance to help you achieve optimal health.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/services"
-                className="inline-flex items-center justify-center px-8 py-4 bg-emerald-600 text-white rounded-full font-medium transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 group"
-              >
-                Our Services
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/contact"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/30 rounded-full font-medium transition-all hover:bg-white/20"
-              >
-                Book Consultation
-              </Link>
-            </div>
-          </motion.div>
-        </div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center text-white">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    key={`slide-${slide.id}`}
+                  >
+                    <div className="inline-block px-4 py-1.5 mb-6 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-100 text-xs font-bold tracking-widest uppercase">
+                      {slide.badge}
+                    </div>
+                    <h1 className="font-serif text-5xl md:text-7xl font-medium leading-tight mb-6">
+                      {slide.title} <br />
+                      <span className="text-emerald-400 italic">{slide.highlight}</span>
+                    </h1>
+                    <p className="text-lg md:text-xl text-stone-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+                      {slide.description}
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Link
+                        to="/services"
+                        className="inline-flex items-center justify-center px-8 py-4 bg-emerald-600 text-white rounded-full font-medium transition-all hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-600/30 group"
+                      >
+                        Our Services
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/30 rounded-full font-medium transition-all hover:bg-white/20"
+                      >
+                        Book Consultation
+                      </Link>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
 
       {/* Features Grid */}
