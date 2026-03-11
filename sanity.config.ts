@@ -8,8 +8,8 @@ export default defineConfig({
   name: 'default',
   title: 'Quince Nutrition Blog',
 
-  projectId: process.env.VITE_SANITY_PROJECT_ID || '',
-  dataset: process.env.VITE_SANITY_DATASET || 'production',
+  projectId: '1scapxh3',
+  dataset: 'production',
 
   plugins: [structureTool(), visionTool(), codeInput()],
 
