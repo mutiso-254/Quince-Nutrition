@@ -13,6 +13,7 @@ import Resources from './pages/Resources';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
+import BlogPost from './pages/BlogPost';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="/services" element={<Services />} />
               <Route path="/products" element={<Products />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/cart" element={<Cart />} />
