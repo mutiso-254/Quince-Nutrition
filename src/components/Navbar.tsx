@@ -44,7 +44,7 @@ export default function Navbar() {
                 Quince
               </span>
               <span className={`text-[10px] uppercase tracking-widest font-medium ${scrolled || location.pathname !== '/' ? 'text-emerald-600' : 'text-emerald-200'}`}>
-                Nutrition & Consultancy
+                Nutrition Wellness & Counselling
               </span>
             </Link>
           </div>
