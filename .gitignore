@@ -1,8 +1,49 @@
-node_modules/
-build/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
 dist/
+build/
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Node & Frontend
+node_modules/
+frontend/dist/
+frontend/.sanity/
 coverage/
 .DS_Store
-*.log
-.env*
+
+# Environment files
+.env
+.env.local
+.env.*.local
 !.env.example
+!frontend/.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

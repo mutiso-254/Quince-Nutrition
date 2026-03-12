@@ -1,0 +1,15 @@
+# Base requirements - common to all environments
+# Core Django
+Django>=4.2,<5.0
+django-cors-headers>=4.3.0
+python-dotenv>=1.0.0
+
+# Database
+psycopg2-binary>=2.9.9  # PostgreSQL adapter (optional, can be removed if using SQLite)
+
+# API & HTTP
+requests>=2.31.0
+
+# Production server
+gunicorn>=21.2.0
+whitenoise>=6.6.0  # Static file serving

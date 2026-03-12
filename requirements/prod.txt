@@ -1,0 +1,6 @@
+# Production requirements
+-r base.txt
+
+# Production-specific packages
+# Add any production-only dependencies here
+sentry-sdk>=1.39.0  # Error tracking (optional)
