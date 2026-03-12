@@ -19,6 +19,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import BlogPost from "./pages/BlogPost";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import CheckoutCancelled from "./pages/CheckoutCancelled";
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -46,6 +48,11 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout/success" element={<CheckoutSuccess />} />
+              <Route
+                path="/checkout/cancelled"
+                element={<CheckoutCancelled />}
+              />
             </Routes>
           </main>
           <Footer />

@@ -50,10 +50,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third-party
     'corsheaders',
+    'rest_framework',
     # project apps
     'apps.contacts.apps.ContactsConfig',
     'apps.inventory.apps.InventoryConfig',
     'apps.core.apps.CoreConfig',
+    'apps.payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -167,3 +169,14 @@ CONTACT_EMAIL_RECIPIENT = os.getenv('CONTACT_EMAIL_RECIPIENT', '')
 # ============================================================
 AIRTABLE_BASE_ID = os.getenv('AIRTABLE_BASE_ID', '')
 AIRTABLE_ACCESS_TOKEN = os.getenv('AIRTABLE_ACCESS_TOKEN', '')
+
+
+# ============================================================
+# CitaPay Configuration
+# ============================================================
+CITAPAY_API_KEY = os.getenv('CITAPAY_API_KEY', 'sk_test_...')
+CITAPAY_BASE_URL = os.getenv('CITAPAY_BASE_URL', 'http://localhost:4000')
+CITAPAY_WEBHOOK_SECRET = os.getenv('CITAPAY_WEBHOOK_SECRET', '')
+
+# Frontend URL for redirects
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')

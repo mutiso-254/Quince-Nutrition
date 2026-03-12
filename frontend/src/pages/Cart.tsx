@@ -1,12 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { ShoppingBag, Trash2, Plus, Minus, ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useCart } from '../context/CartContext';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { ShoppingBag, Trash2, Plus, Minus, ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
+import { useCart } from "../context/CartContext";
+import CheckoutModal from "../components/CheckoutModal";
 
 export default function Cart() {
   const { cart, cartTotal, removeFromCart, updateQuantity } = useCart();
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const handleIncrement = (id: string, currentQuantity: number) => {
     updateQuantity(id, currentQuantity + 1);
@@ -39,7 +41,7 @@ export default function Cart() {
             <h1 className="font-serif text-4xl md:text-5xl">Shopping Cart</h1>
           </div>
           <p className="text-stone-300 mt-3">
-            {cart.length} {cart.length === 1 ? 'item' : 'items'} in your cart
+            {cart.length} {cart.length === 1 ? "item" : "items"} in your cart
           </p>
         </div>
       </div>
@@ -53,7 +55,9 @@ export default function Cart() {
             className="bg-white rounded-2xl shadow-sm border border-stone-200 p-16 text-center"
           >
             <ShoppingBag className="w-20 h-20 text-stone-300 mx-auto mb-6" />
-            <h2 className="text-2xl font-serif text-stone-900 mb-3">Your cart is empty</h2>
+            <h2 className="text-2xl font-serif text-stone-900 mb-3">
+              Your cart is empty
+            </h2>
             <p className="text-stone-600 mb-8">
               Looks like you haven't added any products to your cart yet.
             </p>
@@ -118,10 +122,14 @@ export default function Cart() {
                     <div className="mt-auto flex items-center justify-between">
                       {/* Quantity Controls */}
                       <div className="flex items-center gap-3">
-                        <span className="text-sm text-stone-600 font-medium">Quantity:</span>
+                        <span className="text-sm text-stone-600 font-medium">
+                          Quantity:
+                        </span>
                         <div className="flex items-center border border-stone-300 rounded-lg">
                           <button
-                            onClick={() => handleDecrement(item.id, item.quantity)}
+                            onClick={() =>
+                              handleDecrement(item.id, item.quantity)
+                            }
                             disabled={item.quantity <= 1}
                             className="p-2 hover:bg-stone-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                             aria-label="Decrease quantity"
@@ -132,11 +140,15 @@ export default function Cart() {
                             type="number"
                             min="1"
                             value={item.quantity}
-                            onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                            onChange={(e) =>
+                              handleQuantityChange(item.id, e.target.value)
+                            }
                             className="w-16 text-center border-x border-stone-300 py-2 focus:outline-none"
                           />
                           <button
-                            onClick={() => handleIncrement(item.id, item.quantity)}
+                            onClick={() =>
+                              handleIncrement(item.id, item.quantity)
+                            }
                             className="p-2 hover:bg-stone-100 transition-colors"
                             aria-label="Increase quantity"
                           >
@@ -167,12 +179,16 @@ export default function Cart() {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white rounded-xl shadow-sm border border-stone-200 p-6 sticky top-24"
               >
-                <h2 className="font-serif text-2xl text-stone-900 mb-6">Order Summary</h2>
+                <h2 className="font-serif text-2xl text-stone-900 mb-6">
+                  Order Summary
+                </h2>
 
                 <div className="space-y-3 mb-6 pb-6 border-b border-stone-200">
                   <div className="flex justify-between text-stone-600">
                     <span>Subtotal</span>
-                    <span className="font-medium">KES {cartTotal.toFixed(0)}</span>
+                    <span className="font-medium">
+                      KES {cartTotal.toFixed(0)}
+                    </span>
                   </div>
                   <div className="flex justify-between text-stone-600">
                     <span>Shipping</span>
@@ -182,14 +198,17 @@ export default function Cart() {
 
                 <div className="flex justify-between text-lg font-semibold mb-6">
                   <span className="text-stone-900">Total</span>
-                  <span className="text-emerald-600">KES {cartTotal.toFixed(0)}</span>
+                  <span className="text-emerald-600">
+                    KES {cartTotal.toFixed(0)}
+                  </span>
                 </div>
 
                 <button
-                  disabled
-                  className="w-full bg-stone-300 text-stone-500 py-3 rounded-lg font-semibold mb-3 cursor-not-allowed"
+                  onClick={() => setIsCheckoutOpen(true)}
+                  disabled={cart.length === 0}
+                  className="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors disabled:bg-stone-300 disabled:cursor-not-allowed mb-3"
                 >
-                  Proceed to Checkout (Coming Soon)
+                  Proceed to Checkout
                 </button>
 
                 <Link
@@ -198,15 +217,19 @@ export default function Cart() {
                 >
                   Continue Shopping
                 </Link>
-
-                <p className="text-xs text-stone-500 text-center mt-4">
-                  Payment processing will be available soon. For now, please contact us to complete your order.
-                </p>
               </motion.div>
             </div>
           </div>
         )}
       </div>
+
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={isCheckoutOpen}
+        onClose={() => setIsCheckoutOpen(false)}
+        cart={cart}
+        cartTotal={cartTotal}
+      />
     </div>
   );
 }

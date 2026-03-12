@@ -9,6 +9,7 @@ psycopg2-binary>=2.9.9  # PostgreSQL adapter (optional, can be removed if using 
 
 # API & HTTP
 requests>=2.31.0
+djangorestframework>=3.14.0
 
 # Production server
 gunicorn>=21.2.0

@@ -3,11 +3,11 @@
  */
 
 import { config } from '@/config';
-import type { 
-  ProductsResponse, 
-  ContactFormData, 
+import type {
+  ProductsResponse,
+  ContactFormData,
   ContactFormResponse,
-  Product 
+  Product
 } from '@/types/api';
 
 // Re-export types for convenience
@@ -62,6 +62,96 @@ export async function submitContactForm(formData: ContactFormData): Promise<Cont
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Failed to submit contact form'
+    };
+  }
+}
+
+/**
+ * Checkout types
+ */
+export interface CheckoutRequest {
+  customer: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  items: Array<{
+    id: string;
+    title: string;
+    price: number;
+    quantity: number;
+  }>;
+  shipping: number;
+}
+
+export interface CheckoutResponse {
+  success: boolean;
+  order?: {
+    id: string;
+    order_number: string;
+    total: number;
+  };
+  checkout_url?: string;
+  error?: string;
+}
+
+export interface OrderStatus {
+  success: boolean;
+  order?: {
+    id: string;
+    order_number: string;
+    status: string;
+    total: number;
+    paid_at: string | null;
+    items: any[];
+  };
+  error?: string;
+}
+
+/**
+ * Create checkout session and get payment URL
+ */
+export async function createCheckout(data: CheckoutRequest): Promise<CheckoutResponse> {
+  try {
+    const response = await fetch(`${apiUrl}/api/payments/checkout/create/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating checkout:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to create checkout'
+    };
+  }
+}
+
+/**
+ * Get order status
+ */
+export async function getOrderStatus(orderId: string): Promise<OrderStatus> {
+  try {
+    const response = await fetch(`${apiUrl}/api/payments/orders/${orderId}/`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching order status:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to fetch order status'
     };
   }
 }
