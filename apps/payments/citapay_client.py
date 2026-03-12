@@ -30,10 +30,10 @@ class CitaPayClient:
         metadata: Optional[Dict] = None
     ) -> Dict:
         """
-        Create a CitaPay checkout session for M-Pesa payment
+        Create a CitaPay checkout session for M-Pesa and Card payments
         
         Args:
-            amount: Amount in cents (500.00 KES = 50000)
+            amount: Amount in KES shillings (e.g., 500 for KES 500)
             currency: Currency code (e.g., 'KES')
             customer_email: Customer email address
             customer_phone: Customer phone number (254XXXXXXXXX)
@@ -60,7 +60,7 @@ class CitaPayClient:
             },
             'successUrl': success_url,
             'cancelUrl': cancel_url,
-            'paymentMethods': ['mpesa'],
+            'paymentMethods': ['mpesa', 'card'],  # Support both M-Pesa and Card payments
             'metadata': metadata or {}
         }
         

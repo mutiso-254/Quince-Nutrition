@@ -197,7 +197,7 @@ export default function CheckoutModal({
                   {/* Phone */}
                   <div>
                     <label className="block text-sm font-medium text-stone-700 mb-2">
-                      M-Pesa Phone Number
+                      Phone Number
                     </label>
                     <div className="relative">
                       <Phone
@@ -216,7 +216,7 @@ export default function CheckoutModal({
                       />
                     </div>
                     <p className="text-xs text-stone-500 mt-1">
-                      Format: 254XXXXXXXXX (country code + 9 digits)
+                      Format: 254XXXXXXXXX (for M-Pesa payments)
                     </p>
                   </div>
 
@@ -226,6 +226,16 @@ export default function CheckoutModal({
                       {error}
                     </div>
                   )}
+
+                  {/* Payment Methods Info */}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-900">
+                    <p className="font-semibold mb-1">
+                      Payment Methods Available:
+                    </p>
+                    <p className="text-xs">
+                      💳 Card (Visa, Mastercard) • 📱 M-Pesa
+                    </p>
+                  </div>
 
                   {/* Submit Button */}
                   <button
@@ -239,12 +249,12 @@ export default function CheckoutModal({
                         Processing...
                       </>
                     ) : (
-                      "Proceed to M-Pesa Payment"
+                      "Continue to Payment"
                     )}
                   </button>
 
                   <p className="text-xs text-stone-500 text-center">
-                    You will receive an M-Pesa STK push to complete payment
+                    Choose your preferred payment method on the next page
                   </p>
                 </form>
               </div>

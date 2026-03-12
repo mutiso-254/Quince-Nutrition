@@ -30,7 +30,24 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ['citapay_transaction_id', 'order', 'status', 'amount', 'payment_method', 'created_at']
+    list_display = ['citapay_transaction_id', 'order', 'payment_method', 'amount', 'status', 'created_at']
     list_filter = ['status', 'payment_method', 'created_at']
     search_fields = ['citapay_transaction_id', 'citapay_reference', 'mpesa_receipt', 'mpesa_phone']
     readonly_fields = ['id', 'created_at']
+    
+    fieldsets = (
+        ('Transaction Information', {
+            'fields': ('id', 'order', 'citapay_transaction_id', 'citapay_reference', 'status')
+        }),
+        ('Payment Details', {
+            'fields': ('payment_method', 'amount', 'currency')
+        }),
+        ('M-Pesa Details', {
+            'fields': ('mpesa_receipt', 'mpesa_phone'),
+            'classes': ('collapse',)
+        }),
+        ('Metadata', {
+            'fields': ('webhook_payload', 'created_at'),
+            'classes': ('collapse',)
+        }),
+    )

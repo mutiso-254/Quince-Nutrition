@@ -201,6 +201,9 @@ def citapay_webhook(request):
                 logger.error(f"Order {order_id} not found")
                 return JsonResponse({'error': 'Order not found'}, status=404)
             
+            # Extract payment method and details
+            payment_method = transaction_data.get('paymentMethod', 'mpesa')
+            
             # Create transaction record
             Transaction.objects.create(
                 order=order,
@@ -209,7 +212,7 @@ def citapay_webhook(request):
                 status='completed',
                 amount=transaction_data.get('amount', 0),  # Already in KES shillings
                 currency=transaction_data.get('currency', 'KES'),
-                payment_method=transaction_data.get('paymentMethod', 'mpesa'),
+                payment_method=payment_method,
                 mpesa_receipt=transaction_data.get('externalRef', ''),
                 mpesa_phone=transaction_data.get('customerPhone', ''),
                 webhook_payload=transaction_data

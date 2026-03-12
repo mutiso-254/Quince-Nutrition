@@ -14,5 +14,5 @@ urlpatterns = [
     path('api/payments/', include('apps.payments.urls')),
 
     # Serve the React frontend for all other routes
-    re_path(r'^(?!api/|admin/|assets/).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
+    re_path(r'^(?!(?:api|admin|assets)(?:/|$)).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ]
